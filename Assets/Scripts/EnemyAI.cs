@@ -28,6 +28,10 @@ public class EnemyAI : MonoBehaviour
 	public bool knockout = false;
 	public float knockOutTime = 10.0f;
 
+    public bool playedSound = false;
+    public float enemyDistance;
+    public float enemyMaxDistance;
+
 
 	void Start ()
 	{
@@ -91,6 +95,9 @@ public class EnemyAI : MonoBehaviour
 	void playSounds (float distance, float maxDistance)
 	{
 		if (Time.time > nextStep) {
+            playedSound = true;
+            enemyDistance = distance;
+            enemyMaxDistance = maxDistance;
 			audioSource.volume = 1 - distance / maxDistance;
 			nextStep = Time.time + stepInterval; 
 			int n = Random.Range (1, footstepSounds.Length);
@@ -155,4 +162,10 @@ public class EnemyAI : MonoBehaviour
 		agent.speed = 2;
 
 	}
+    void OnTriggerExit (Collider other) {
+
+        if (other.tag == "Player") {
+            playedSound = false;
+        }
+    }
 }

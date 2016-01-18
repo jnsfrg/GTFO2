@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         isPaused = false;
+        Cursor.visible = false;
     }
 
     void Update()
@@ -20,18 +21,21 @@ public class UIManager : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().enabled = false;
             PauseGame(true);
+            Cursor.visible = true;
         }
 
         else
         {
             PauseGame(false);
             GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().enabled = true;
-
+            Cursor.visible = false;
         }
 
 
         if (Input.GetButtonDown("Cancel"))
+        {
             SwitchPause();
+        }
 
     }
 
@@ -85,8 +89,8 @@ public class UIManager : MonoBehaviour
 
     public void UnpauseAudio()
     {
-        AudioSource sources = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
-        sources.Play();
+       // AudioSource sources = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+       // sources.Play();
         
     }
 
