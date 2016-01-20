@@ -23,6 +23,9 @@ public class OpenDoor : MonoBehaviour
 
 	//Card to open
 	public string cardToOpen;
+	private GameObject textdoor;
+
+
 
 	void Start ()
 	{
@@ -36,23 +39,38 @@ public class OpenDoor : MonoBehaviour
 		inventory = GameObject.FindGameObjectWithTag ("GameController").GetComponent <Inventory> ();
 		//animator = GameObject.FindGameObjectWithTag ("Door").GetComponent<Animator> ();
 		door = GameObject.FindGameObjectWithTag("Door");
+		animator = door.GetComponent<Animator> ();
+		textdoor = GameObject.FindGameObjectWithTag ("doorText");
+		textdoor.SetActive (false);
+
 
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+		var info = animator.GetCurrentAnimatorStateInfo (0).IsName("doorState");
+		Debug.Log (info);
         
+		if (info) {
+
+			animator.SetBool ("canOpen", false);
+		}
 		//Debug.Log ("allowed: "+canOpen);
 		if (canOpen) {
 			if (Input.GetKeyDown ("f")) {
 				Debug.Log ("key pressed");
+				//door.GetComponent<Animator>().SetBool("openDoor",true);
+				animator.SetBool("canOpen",true);
+			
+				Debug.Log ("Start Animation");
+
+
 			}
 			//Open door
 			if (doorOpen) {
 				//transform.eulerAngles = Vector3.Slerp (transform.eulerAngles, endRot, Time.deltaTime * smooth);
-				door.GetComponent<Animator>().Play("Cube|CubeAction.0010");
-				Debug.Log ("Start Animation");
+
 				if (removeInventoryItem) {
 					removeInventoryItem = false;
 					inventory.useItem (cardToOpen);
@@ -98,6 +116,8 @@ public class OpenDoor : MonoBehaviour
 			canOpen = true;
 			doorOpen = true;
 			Debug.Log ("canOpen" + canOpen);
+
+			textdoor.SetActive (true);
 		}
 	}
 
@@ -106,6 +126,12 @@ public class OpenDoor : MonoBehaviour
 		//Debug.Log ("OnTriggerExit");
 		if (collider.gameObject.tag == "Player") {
 			canOpen = false;
+		
+			textdoor.SetActive (false);
 		}
 	}
+
+
+
+
 }

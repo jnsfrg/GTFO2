@@ -19,3 +19,19 @@
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
+
+*.mat
+
+*.meta
+
+*.meta
+
+Assets/Standard Assets/Characters/PhysicsMaterials.meta
+
+Assets/Standard Assets/Characters/FirstPersonCharacter/Scripts.meta
+
+Assets/Standard Assets/Characters/FirstPersonCharacter/Scripts.meta
+
+*.meta
+
+*.meta
