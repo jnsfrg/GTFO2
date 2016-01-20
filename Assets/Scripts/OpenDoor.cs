@@ -19,7 +19,7 @@ public class OpenDoor : MonoBehaviour
 	private Inventory inventory;
 	private GameController gameController;
 	private GameObject cardRenderer;
-
+	private GameObject door;
 
 	//Card to open
 	public string cardToOpen;
@@ -30,10 +30,12 @@ public class OpenDoor : MonoBehaviour
 		//animator = GetComponent<Animator>();
         
 		doorOpen = false;
-		startRot = transform.eulerAngles;
-		endRot = new Vector3 (startRot.x, startRot.y + angleDoor, startRot.z);
+		//startRot = transform.eulerAngles;
+		//endRot = new Vector3 (startRot.x, startRot.y + angleDoor, startRot.z);
 		//TODO: Move calls to inventory to gameController for overview reasons.
 		inventory = GameObject.FindGameObjectWithTag ("GameController").GetComponent <Inventory> ();
+		//animator = GameObject.FindGameObjectWithTag ("Door").GetComponent<Animator> ();
+		door = GameObject.FindGameObjectWithTag("Door");
 
 	}
 	
@@ -48,7 +50,9 @@ public class OpenDoor : MonoBehaviour
 			}
 			//Open door
 			if (doorOpen) {
-				transform.eulerAngles = Vector3.Slerp (transform.eulerAngles, endRot, Time.deltaTime * smooth);
+				//transform.eulerAngles = Vector3.Slerp (transform.eulerAngles, endRot, Time.deltaTime * smooth);
+				door.GetComponent<Animator>().Play("Cube|CubeAction.0010");
+				Debug.Log ("Start Animation");
 				if (removeInventoryItem) {
 					removeInventoryItem = false;
 					inventory.useItem (cardToOpen);
@@ -57,10 +61,10 @@ public class OpenDoor : MonoBehaviour
 
 			//Close door
 			if (!doorOpen) {
-				transform.eulerAngles = Vector3.Slerp (transform.eulerAngles, startRot, Time.deltaTime * smooth);
+				//transform.eulerAngles = Vector3.Slerp (transform.eulerAngles, startRot, Time.deltaTime * smooth);
 			}
 
-			if (Input.GetKeyDown ("f") && transform.eulerAngles.y < 1 && inventory.getInventoryList ().Contains (cardToOpen)) {
+			if (Input.GetKeyDown ("f") && inventory.getInventoryList ().Contains (cardToOpen)) {
                 
 				Debug.Log ("Open Door", gameObject);
 				doorOpen = true;
@@ -68,7 +72,7 @@ public class OpenDoor : MonoBehaviour
                 
 			}
         
-			if (Input.GetKeyDown ("f") && transform.eulerAngles.y > 75) {
+			if (Input.GetKeyDown ("f") ) {
 				Debug.Log ("doorOpen false");
 				doorOpen = false;
 			}
@@ -89,13 +93,17 @@ public class OpenDoor : MonoBehaviour
 
 	void OnTriggerEnter (Collider collider)
 	{
+		//Debug.Log ("OnTriggerEnter");
 		if (collider.gameObject.tag == "Player") {
 			canOpen = true;
+			doorOpen = true;
+			Debug.Log ("canOpen" + canOpen);
 		}
 	}
 
 	void OnTriggerExit (Collider collider)
 	{
+		//Debug.Log ("OnTriggerExit");
 		if (collider.gameObject.tag == "Player") {
 			canOpen = false;
 		}
