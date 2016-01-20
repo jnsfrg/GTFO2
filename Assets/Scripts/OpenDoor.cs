@@ -49,13 +49,13 @@ public class OpenDoor : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		var info = animator.GetCurrentAnimatorStateInfo (0).IsName("doorState");
-		Debug.Log (info);
-        
-		if (info) {
-
-			animator.SetBool ("canOpen", false);
-		}
+//		var info = animator.GetCurrentAnimatorStateInfo (0).IsName("doorState");
+//		Debug.Log (info);
+//        
+//		if (info) {
+//
+//			animator.SetBool ("canOpen", false);
+//		}
 		//Debug.Log ("allowed: "+canOpen);
 		if (canOpen) {
 			if (Input.GetKeyDown ("f")) {

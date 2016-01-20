@@ -90,12 +90,15 @@ public class GameController : MonoBehaviour
 	//assigns Card Textures to all Doors that are tagged with "Door"
 	private void assignCardsToDoors ()
 	{
+		
 		GameObject[] gs = GameObject.FindGameObjectsWithTag ("Door");
+		Debug.Log ("assign Cards"+gs.Length);
 		if (gs != null) {
 			foreach (GameObject g in gs) {  // iterate over Doors
 				foreach (MeshRenderer m in g.GetComponentsInChildren<MeshRenderer> ()) { // iterate over the renderer of the CardRenderer Object in a door
 					if (m.gameObject.name == "card") {
 						string cardToOpen = getPossibleDoorCard ();
+						Debug.Log ("cardToOpen" + cardToOpen);
 						g.GetComponent<OpenDoor> ().cardToOpen = cardToOpen;
 						m.material.mainTexture = (Texture)Resources.Load (cardToOpen, typeof(Texture));
 					}
