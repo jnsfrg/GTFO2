@@ -66,7 +66,7 @@ public class GameController : MonoBehaviour
 		score.Win ();
 		score.Stop ();
 		//SceneManager.LoadScene ("endScreen");
-        Application.LoadLevel("endScreen");
+        Application.LoadLevel("outroScreen");
 	}
 
 	//Call this to end a game with Loosing it
