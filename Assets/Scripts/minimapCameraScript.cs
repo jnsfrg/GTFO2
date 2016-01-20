@@ -13,7 +13,7 @@ public class minimapCameraScript : MonoBehaviour {
     public Texture2D textureEnemy;
     public Texture2D borderMap;
     public Texture2D fogOfCheat;
-    //private float angleView;
+    private float angleView;
     private float sizeTextureEnemy;
 
     // get the center of the player/enemies to position the textures in the middle
@@ -25,7 +25,7 @@ public class minimapCameraScript : MonoBehaviour {
     private Vector3 offset;
 
     // player/enemy position ont he minimap
-    //private Vector3 objPosition;
+    private Vector3 objPosition;
     private Vector3 positionEnemy1;
     private Vector3 positionEnemy2;
 
@@ -44,18 +44,18 @@ public class minimapCameraScript : MonoBehaviour {
     void OnGUI() {
 
         // get position of player on viewport of minimapcamera
-        //objPosition = minimapCamera.WorldToViewportPoint(transform.position);
+        objPosition = minimapCamera.WorldToViewportPoint(transform.position);
 
         // get viewing angle of player
-        //angleView = targetToFollow.transform.eulerAngles.y - 90;
-        //Matrix4x4 guiRot = GUI.matrix;
+        angleView = targetToFollow.transform.eulerAngles.y - 90;
+        Matrix4x4 guiRot = GUI.matrix;
 
         // draw frame around miniMap
         GUI.DrawTexture(new Rect(minimapCamera.rect.x * Screen.width, ((1 - minimapCamera.rect.y)* Screen.height) - (Screen.height * minimapCamera.rect.height), minimapCamera.rect.width * Screen.width, 
             minimapCamera.rect.height * Screen.height), borderMap, ScaleMode.StretchToFill, true, 10.0F);
 
-        //GUI.DrawTexture(new Rect(minimapCamera.rect.x * Screen.width, ((1 - minimapCamera.rect.y) * Screen.height) - (Screen.height * minimapCamera.rect.height), minimapCamera.rect.width * Screen.width,
-          // minimapCamera.rect.height * Screen.height), fogOfCheat, ScaleMode.StretchToFill, true, 10.0F);
+        GUI.DrawTexture(new Rect(minimapCamera.rect.x * Screen.width, ((1 - minimapCamera.rect.y) * Screen.height) - (Screen.height * minimapCamera.rect.height), minimapCamera.rect.width * Screen.width,
+          minimapCamera.rect.height * Screen.height), fogOfCheat, ScaleMode.StretchToFill, true, 10.0F);
 
         // get position of enemy, x and y between 0 and 1 if on viewport of minimapcamera
         positionEnemy1 = minimapCamera.WorldToViewportPoint(enemy1.transform.position);
@@ -93,16 +93,16 @@ public class minimapCameraScript : MonoBehaviour {
         }
 
         // get the center position of the player to place texture and rotate the texture later 
-        //centerPlayer.x = Screen.width * (minimapCamera.rect.x + (objPosition.x * minimapCamera.rect.width));
-        //centerPlayer.y = Screen.height * (1 - (minimapCamera.rect.y + (objPosition.y * minimapCamera.rect.height)));
+        centerPlayer.x = Screen.width * (minimapCamera.rect.x + (objPosition.x * minimapCamera.rect.width));
+        centerPlayer.y = Screen.height * (1 - (minimapCamera.rect.y + (objPosition.y * minimapCamera.rect.height)));
 
         // rotate view angle of player around pivot point
-        //GUIUtility.RotateAroundPivot(angleView, centerPlayer);
+        GUIUtility.RotateAroundPivot(angleView, centerPlayer);
 
         // position the texture of player on minimap 
-        //float xMini = (float)(Screen.width * (minimapCamera.rect.x + (objPosition.x * minimapCamera.rect.width)) - 7.5);
-        //float yMini = (float)(Screen.height * (1 - (minimapCamera.rect.y + (objPosition.y * minimapCamera.rect.height))) - 7.5);
-        //GUI.DrawTexture(new Rect(xMini, yMini, 20, 20), texturePlayer);
+        float xMini = (float)(Screen.width * (minimapCamera.rect.x + (objPosition.x * minimapCamera.rect.width)) - 7.5);
+        float yMini = (float)(Screen.height * (1 - (minimapCamera.rect.y + (objPosition.y * minimapCamera.rect.height))) - 7.5);
+        GUI.DrawTexture(new Rect(xMini, yMini, 20, 20), texturePlayer);
     }
 }
 
