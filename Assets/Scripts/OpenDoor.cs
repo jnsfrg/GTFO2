@@ -20,13 +20,14 @@ public class OpenDoor : MonoBehaviour
 	private GameController gameController;
 	private GameObject cardRenderer;
 	private GameObject door;
-
+	private GameObject textdoor;
 	//Card to open
 	public string cardToOpen;
-	private GameObject textdoor;
+
 	private CanvasRenderer renderer; 
-
-
+	//private GameObject door;
+	public GameObject doorText;
+	private Canvas canvas;
 
 	void Start ()
 	{
@@ -39,10 +40,17 @@ public class OpenDoor : MonoBehaviour
 		//TODO: Move calls to inventory to gameController for overview reasons.
 		inventory = GameObject.FindGameObjectWithTag ("GameController").GetComponent <Inventory> ();
 		//animator = GameObject.FindGameObjectWithTag ("Door").GetComponent<Animator> ();
-		door = GameObject.FindGameObjectWithTag("Door");
-		animator = door.GetComponent<Animator> ();
-		textdoor = GameObject.FindGameObjectWithTag ("doorText");
-		renderer = textdoor.GetComponent<CanvasRenderer> ();
+		//door = GameObject.FindGameObjectWithTag("Door");
+		animator = gameObject.GetComponent<Animator> ();
+		canvas = GameObject.Find ("Canvas").GetComponent<Canvas>();
+
+		//textdoor = GameObject.FindGameObjectWithTag ("doorText");
+		doorText = Resources.Load("Prefabs/doorText") as GameObject;
+	
+		textdoor = Instantiate (doorText, new Vector2(Screen.width/2,90), Quaternion.identity) as GameObject;
+		textdoor.transform.parent = canvas.transform;
+
+		textdoor.SetActive (false);
 
 	}
 	
@@ -61,9 +69,7 @@ public class OpenDoor : MonoBehaviour
 			if (Input.GetKeyDown ("f")) {
 				Debug.Log ("key pressed");
 				//door.GetComponent<Animator>().SetBool("openDoor",true);
-				animator.SetBool("canOpen",true);
-			
-				Debug.Log ("Start Animation");
+
 
 
 			}
@@ -83,17 +89,19 @@ public class OpenDoor : MonoBehaviour
 			}
 
 			if (Input.GetKeyDown ("f") && inventory.getInventoryList ().Contains (cardToOpen)) {
-                
+				animator.SetBool("canOpen",true);
+
+				Debug.Log ("Start Animation");
 				Debug.Log ("Open Door", gameObject);
 				doorOpen = true;
 				removeInventoryItem = true;
                 
 			}
         
-			if (Input.GetKeyDown ("f") ) {
-				Debug.Log ("doorOpen false");
-				doorOpen = false;
-			}
+//			if (Input.GetKeyDown ("f") ) {
+//				Debug.Log ("doorOpen false");
+//				doorOpen = false;
+//			}
        
 			//TODO: Make open door an animation 
 //       if (Input.GetKeyDown("f") && !animator.GetBool("openDoor")) {
@@ -114,11 +122,16 @@ public class OpenDoor : MonoBehaviour
 		//Debug.Log ("OnTriggerEnter");
 		if (collider.gameObject.tag == "Player") {
 			canOpen = true;
-			doorOpen = true;
+			//doorOpen = true;
 			Debug.Log ("canOpen" + canOpen);
+			Debug.Log ("doorOpen"+doorOpen);
 
-			//textdoor.SetActive (true);
-			renderer.SetAlpha (1.0f);
+			if (!doorOpen) {
+				textdoor.SetActive (true);
+
+			}
+
+			//renderer.SetAlpha (1.0f);
 		}
 	}
 
@@ -129,8 +142,10 @@ public class OpenDoor : MonoBehaviour
 			canOpen = false;
 		
 			Debug.Log ("dont open");
-			//textdoor.SetActive (false);
-			renderer.SetAlpha(0.0f);
+
+			textdoor.SetActive (false);
+			//renderer.SetAlpha(0.0f);
+
 		}
 	}
 
