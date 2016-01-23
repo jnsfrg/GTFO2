@@ -24,6 +24,7 @@ public class OpenDoor : MonoBehaviour
 	//Card to open
 	public string cardToOpen;
 	private GameObject textdoor;
+	private CanvasRenderer renderer; 
 
 
 
@@ -41,8 +42,7 @@ public class OpenDoor : MonoBehaviour
 		door = GameObject.FindGameObjectWithTag("Door");
 		animator = door.GetComponent<Animator> ();
 		textdoor = GameObject.FindGameObjectWithTag ("doorText");
-		textdoor.SetActive (false);
-
+		renderer = textdoor.GetComponent<CanvasRenderer> ();
 
 	}
 	
@@ -117,7 +117,8 @@ public class OpenDoor : MonoBehaviour
 			doorOpen = true;
 			Debug.Log ("canOpen" + canOpen);
 
-			textdoor.SetActive (true);
+			//textdoor.SetActive (true);
+			renderer.SetAlpha (1.0f);
 		}
 	}
 
@@ -127,7 +128,9 @@ public class OpenDoor : MonoBehaviour
 		if (collider.gameObject.tag == "Player") {
 			canOpen = false;
 		
-			textdoor.SetActive (false);
+			Debug.Log ("dont open");
+			//textdoor.SetActive (false);
+			renderer.SetAlpha(0.0f);
 		}
 	}
 
