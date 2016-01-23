@@ -60,7 +60,7 @@ public class SoundMonitor : MonoBehaviour
         //enemy1 = GameObject.FindObjectOfType<EnemyAI> ();
         var sound =	enemy1.GetComponent<AudioClip>();
 
-        Debug.Log("SOUND:" + sound);
+        //Debug.Log("SOUND:" + sound);
 
         for (int i = 0; i < 1023; i++)
         {
@@ -68,11 +68,11 @@ public class SoundMonitor : MonoBehaviour
 
             int test12434 = Random.Range(1, 100);
             float num = (float)test12434 / 100;
-            Debug.Log(num);
+           // Debug.Log(num);
             spectest[i, 0] = num; 
         }
 
-        Debug.Log("test" + spectest[555, 0]);
+       // Debug.Log("test" + spectest[555, 0]);
 
         for (int i = 0; i < enemyCubes.Length; i++)
         {
@@ -120,7 +120,7 @@ public class SoundMonitor : MonoBehaviour
 
             if ((enemy1.playedSound = true) && (enemy2.playedSound = true))
             {
-                Debug.Log("Distance enemy1 " + enemy1.enemyDistance + " Distance enemy2  : " + enemy2.enemyDistance);
+                //Debug.Log("Distance enemy1 " + enemy1.enemyDistance + " Distance enemy2  : " + enemy2.enemyDistance);
 
                 if ((enemy1.enemyDistance != 0) && (enemy2.enemyDistance != 0))
                 {
