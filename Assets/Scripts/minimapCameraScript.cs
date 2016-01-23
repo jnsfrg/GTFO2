@@ -12,7 +12,7 @@ public class minimapCameraScript : MonoBehaviour {
     public Texture2D texturePlayer;
     public Texture2D textureEnemy;
     public Texture2D borderMap;
-    public Texture2D fogOfCheat;
+   // public Texture2D fogOfCheat;
     private float angleView;
     private float sizeTextureEnemy;
 
@@ -54,8 +54,8 @@ public class minimapCameraScript : MonoBehaviour {
         GUI.DrawTexture(new Rect(minimapCamera.rect.x * Screen.width, ((1 - minimapCamera.rect.y)* Screen.height) - (Screen.height * minimapCamera.rect.height), minimapCamera.rect.width * Screen.width, 
             minimapCamera.rect.height * Screen.height), borderMap, ScaleMode.StretchToFill, true, 10.0F);
 
-        GUI.DrawTexture(new Rect(minimapCamera.rect.x * Screen.width, ((1 - minimapCamera.rect.y) * Screen.height) - (Screen.height * minimapCamera.rect.height), minimapCamera.rect.width * Screen.width,
-          minimapCamera.rect.height * Screen.height), fogOfCheat, ScaleMode.StretchToFill, true, 10.0F);
+       // GUI.DrawTexture(new Rect(minimapCamera.rect.x * Screen.width, ((1 - minimapCamera.rect.y) * Screen.height) - (Screen.height * minimapCamera.rect.height), minimapCamera.rect.width * Screen.width,
+         // minimapCamera.rect.height * Screen.height), fogOfCheat, ScaleMode.StretchToFill, true, 10.0F);
 
         // get position of enemy, x and y between 0 and 1 if on viewport of minimapcamera
         positionEnemy1 = minimapCamera.WorldToViewportPoint(enemy1.transform.position);
