@@ -25,6 +25,7 @@ public class OpenDoor : MonoBehaviour
 	public string cardToOpen;
 	private GameObject doorText;
 	private GameObject textDoor;
+	private AudioSource audio;
 	void Start ()
 	{
 
@@ -37,11 +38,12 @@ public class OpenDoor : MonoBehaviour
 		inventory = GameObject.FindGameObjectWithTag ("GameController").GetComponent <Inventory> ();
 		animator = gameObject.GetComponent<Animator> ();
 		canvas = GameObject.Find ("Canvas").GetComponent<Canvas> ();
-
+		audio = gameObject.GetComponent<AudioSource> ();
 		doorText = Resources.Load ("Prefabs/doorText") as GameObject;
 		textDoor = Instantiate (doorText, new Vector2(Screen.width/2,20), Quaternion.identity) as GameObject;
 		textDoor.transform.parent = canvas.transform;
 		textDoor.SetActive (false);
+
 	}
 	
 	// Update is called once per frame
@@ -65,12 +67,13 @@ public class OpenDoor : MonoBehaviour
 
 			//Close door
 			if (!doorOpen) {
-				transform.eulerAngles = Vector3.Slerp (transform.eulerAngles, startRot, Time.deltaTime * smooth);
+				//transform.eulerAngles = Vector3.Slerp (transform.eulerAngles, startRot, Time.deltaTime * smooth);
 			}
 
 
 			if (Input.GetKeyDown ("f") && inventory.getInventoryList ().Contains (cardToOpen)) {
 				animator.SetBool("canOpen",true);
+				audio.Play ();
 				Debug.Log ("start Animation");
 				Debug.Log ("Open Door", gameObject);
 				doorOpen = true;

@@ -23,13 +23,14 @@ public class GameController : MonoBehaviour
 	private bool canPickUp=true;
 
 
+
 	void Start ()
 	{
 		//assign variable first!!
 		inventory = GetComponent<Inventory> ();
 		score = GameObject.FindGameObjectWithTag ("Score").GetComponent<Score> ();
 		playerName = PlayerPrefs.GetString ("PlayerName");
-
+		gameObject.GetComponent<AudioSource> ().Play ();
 
 		assignCardsToDoors ();// this also calls assignCardsToPickUpItems();
 		assignCardToGarage ();

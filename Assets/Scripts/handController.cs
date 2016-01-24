@@ -23,6 +23,7 @@ public class handController : MonoBehaviour
 	private GameObject cardInRightHand;
 	private GameObject cross;
 	public float throwingInstantSpeed=10;
+	private AudioSource audio;
 
 
 	void Start ()
@@ -32,6 +33,7 @@ public class handController : MonoBehaviour
 		fpsController = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ();
 		cross = GameObject.FindGameObjectWithTag ("Cross");
 		cross.GetComponent<Image> ().enabled=false;
+		audio = gameObject.GetComponent<AudioSource> ();
 	}
 	// Update is called once per frame
 	void Update ()
@@ -130,6 +132,7 @@ public class handController : MonoBehaviour
 		cardInRightHand.GetComponent<Rigidbody> ().useGravity=false;
 		cardInRightHand.transform.parent=null;
 		cardInRightHand.transform.LookAt(hit.point);//send it on the ray
+		audio.Play();
 		cardInRightHand.GetComponent<Rigidbody> ().velocity = cardInRightHand.transform.forward * throwingInstantSpeed;
 	
 	}
