@@ -33,7 +33,7 @@ public class DisplayResult : MonoBehaviour {
 				rank.text = "Your Rank:  Not in Highscore";
 			}
 		}else{
-			t.text="Game over !!";
+			t.text="Game over!";
 			rank.text = "";
 		}
 		int[] val;
