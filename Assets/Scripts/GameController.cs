@@ -30,7 +30,10 @@ public class GameController : MonoBehaviour
 		inventory = GetComponent<Inventory> ();
 		score = GameObject.FindGameObjectWithTag ("Score").GetComponent<Score> ();
 		playerName = PlayerPrefs.GetString ("PlayerName");
-		gameObject.GetComponent<AudioSource> ().Play ();
+		if (gameObject.GetComponent<AudioSource> () != null) {
+			gameObject.GetComponent<AudioSource> ().Play ();
+		}
+
 
 		assignCardsToDoors ();// this also calls assignCardsToPickUpItems();
 		assignCardToGarage ();

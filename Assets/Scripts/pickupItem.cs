@@ -27,7 +27,7 @@ public class pickupItem : MonoBehaviour
 
 			
 
-				Destroy (this.gameObject, 3/10);
+				Destroy (this.gameObject);
 			
 							
 			
