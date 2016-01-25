@@ -82,7 +82,7 @@ public class EnemyAI : MonoBehaviour
 		if (points.Length == 0) {
 			return;
 		}
-		//Debug.Log ("going to: " + destPoint);
+		Debug.Log (gameObject.name + " going to: " + destPoint);
 
 		// Set the agent to go to the currently selected destination.
 		agent.destination = points [destPoint].position;

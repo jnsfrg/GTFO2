@@ -25,7 +25,7 @@ public class open : MonoBehaviour
 			}
 
 			if (possible) {
-				animator.SetBool ("open", true);
+                animator.SetTrigger ("open");
 			}
 		}
 	}

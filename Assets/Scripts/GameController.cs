@@ -176,4 +176,11 @@ public class GameController : MonoBehaviour
 	public void SetCanPickUp(bool c){
 		canPickUp = c;
 	}
+
+    public void IncreaseScore(){
+        score.increaseScore();
+    }
+    public void DescreseScore(){
+        score.decreaseScore();
+    }
 }

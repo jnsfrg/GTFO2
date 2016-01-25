@@ -20,6 +20,8 @@ public class Score : MonoBehaviour
 	private static string[] highScoreNames = new string[10];
 	private static bool InHighScore = false;
 	private static int rank;
+    public static int  changeValue = 50;
+    private int delta;
 
 	//set win true
 	public void Win ()
@@ -34,18 +36,20 @@ public class Score : MonoBehaviour
 			highScoreValues [i] = PlayerPrefs.GetInt (valKey + i, 0);
 			highScoreNames [i] = PlayerPrefs.GetString (nameKey + i, "No entry");
 		}
+        delta = 0;
 	}
 
 	// measure time TODO: measure more.
 	public void StartCounting ()
 	{
+        delta = 0;
 		start = Time.time;
 		Debug.Log (start);
 	}
 
 	public int getScore ()
 	{
-		return score;
+        return score + delta;
 	}
 
 	// Stop counting (time) TODO: you get it. (more)
@@ -91,7 +95,7 @@ public class Score : MonoBehaviour
 		for (int i = 0; i < highScoreSize; i++) {
 			if (i >= rank - 1) {
 				if (i == rank - 1) {
-					tmpVal [i] = score;
+                    tmpVal [i] = score+delta;
 					tmpNames [i] = name;
 				} else {
 					tmpVal [i] = highScoreValues [i - 1];
@@ -129,7 +133,7 @@ public class Score : MonoBehaviour
 	{
 		int i;
 		for (i = 0; i < highScoreSize; i++) {
-			if (highScoreValues [i] < score) {
+            if (highScoreValues [i] < score + delta) {
 				return i + 1;
 			}
 		}
@@ -156,4 +160,11 @@ public class Score : MonoBehaviour
 			names [i] = PlayerPrefs.GetString (nameKey + i, "No entry");
 		}
 	}
+
+    public void increaseScore(){
+        delta = delta + changeValue;
+    }
+    public void decreaseScore(){
+        delta = delta - changeValue;
+    }
 }
