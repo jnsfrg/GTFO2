@@ -5,7 +5,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 [RequireComponent(typeof(AudioSource))]
 public class EnemyAI : MonoBehaviour
 {
-	public Transform[] points;
+	public Transform[] points; 
 	private int destPoint = 0;
 	private NavMeshAgent agent;
 	public float hearingDistance;
@@ -35,6 +35,7 @@ public class EnemyAI : MonoBehaviour
 
 	void Start ()
 	{
+        
 		agent = GetComponent<NavMeshAgent> ();
 		// Disabling auto-braking allows for continuous movement
 		// between points (ie, the agent doesn't slow down as it
