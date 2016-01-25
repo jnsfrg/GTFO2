@@ -7,11 +7,11 @@ public class pickupItem : MonoBehaviour
 
 	private string cardValue;
 	private GameController gameController;
-	private AudioSource audio;
+	private AudioSource[] audio;
 	void Start ()
 	{
 		gameController = GameObject.FindGameObjectWithTag ("GameController").GetComponent <GameController> ();
-		audio = gameObject.GetComponent<AudioSource> ();
+        audio = GameObject.FindGameObjectWithTag("Player").GetComponents<AudioSource>();
 	}
 
 
@@ -22,11 +22,8 @@ public class pickupItem : MonoBehaviour
 		if (col.gameObject.tag == "Player") {
 			//Only Pickup when inventory not full
 			if (gameController.addCardIfPossible (cardValue)) {
-				audio.Play ();
+				audio[1].Play ();
 				Debug.Log ("PickUpAndPlay");
-
-			
-
 				Destroy (this.gameObject);
 			
 							

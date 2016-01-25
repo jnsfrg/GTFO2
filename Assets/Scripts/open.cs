@@ -9,10 +9,12 @@ public class open : MonoBehaviour
 
 	private List<string> cards;
 	private GameController gameController;
+    private AudioSource audio;
 
 	void Start ()
 	{
 		animator = GetComponent<Animator> ();
+        audio = GetComponent<AudioSource>();
 		gameController = GameObject.FindGameObjectWithTag ("GameController").GetComponent <GameController> ();
 	}
 
@@ -25,6 +27,7 @@ public class open : MonoBehaviour
 			}
 
 			if (possible) {
+                audio.Play();
                 animator.SetTrigger ("open");
 			}
 		}
