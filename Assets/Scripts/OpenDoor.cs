@@ -26,6 +26,7 @@ public class OpenDoor : MonoBehaviour
 	private GameObject doorText;
 	private GameObject textDoor;
 	private AudioSource audio;
+    private handController handController;
 	void Start ()
 	{
 
@@ -43,6 +44,8 @@ public class OpenDoor : MonoBehaviour
 		textDoor = Instantiate (doorText, new Vector2(Screen.width/2,20), Quaternion.identity) as GameObject;
 		textDoor.transform.parent = canvas.transform;
 		textDoor.SetActive (false);
+        
+        handController = GameObject.FindObjectOfType<handController>();
 
 	}
 	
@@ -72,6 +75,7 @@ public class OpenDoor : MonoBehaviour
 
 
 			if (Input.GetKeyDown ("f") && inventory.getInventoryList ().Contains (cardToOpen)) {
+                handController.OpenDoor(cardToOpen);
 				animator.SetBool("canOpen",true);
 				audio.Play ();
 				Debug.Log ("start Animation");
