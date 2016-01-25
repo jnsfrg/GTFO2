@@ -15,7 +15,7 @@ public class EnemyAI : MonoBehaviour
 	private GameObject player;
 	private GameController gameController;
 	public AudioClip[] footstepSounds;
-	private AudioSource audioSource;
+	private AudioSource[] audioSource;
 	public float stepInterval = 0.5f;
 	private float nextStep = 0f;
 
@@ -47,7 +47,7 @@ public class EnemyAI : MonoBehaviour
 		gameController = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 		fpsController = player.GetComponent<FirstPersonController> ();
 		col = GetComponent<SphereCollider> ();
-		audioSource = GetComponent<AudioSource> ();
+		audioSource = GetComponents<AudioSource> ();
 		animator = GetComponent<Animator>();
 	}
 
@@ -99,14 +99,14 @@ public class EnemyAI : MonoBehaviour
             playedSound = true;
             enemyDistance = distance;
             enemyMaxDistance = maxDistance;
-			audioSource.volume = 1 - distance / maxDistance;
+			audioSource[0].volume = 1 - distance / maxDistance;
 			nextStep = Time.time + stepInterval; 
 			int n = Random.Range (1, footstepSounds.Length);
-			audioSource.clip = footstepSounds [n];
-			audioSource.PlayOneShot (audioSource.clip);
+			audioSource[0].clip = footstepSounds [n];
+			audioSource[0].PlayOneShot (audioSource[0].clip);
 			// move picked sound to index 0 so it's not picked next time
 			footstepSounds [n] = footstepSounds [0];
-			footstepSounds [0] = audioSource.clip;
+			footstepSounds [0] = audioSource[0].clip;
 		}
 	}
 	void OnTriggerStay (Collider other)
@@ -148,6 +148,7 @@ public class EnemyAI : MonoBehaviour
 
 	}
 	public void Knockout(){
+        audioSource[1].Play();
 		StartCoroutine ("knockedOut");
 	}
 
