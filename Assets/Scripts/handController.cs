@@ -169,32 +169,32 @@ public class handController : MonoBehaviour
     public void OpenDoor(string card)
     {
         animator.SetTrigger("openDoor");
-        StartCoroutine("WaitAndTakeCardForOpeningDoor",card);
-        animator.SetTrigger("openTaken");
+//        StartCoroutine("WaitAndTakeCardForOpeningDoor",card);
+//        animator.SetTrigger("openTaken");
     }
 
-    IEnumerator WaitAndTakeCardForOpeningDoor(string card)
-    {
-        yield return new WaitForSeconds(0.25f);
-
-        GameObject cardOrig=null;
-
-        foreach (GameObject g in cards)
-        {
-            var x = g.GetComponentInChildren<pickupItem>();
-            if (x.getCardValue() == card)
-            {
-                cardOrig = g.transform.Find("cardHand").gameObject;
-
-            }
-        }
-
-        cardInRightHand = Instantiate(cardOrig);
-        cardInRightHand.GetComponent<pickupItem>().SetCardValue(card);
-        cardInRightHand.GetComponent<Animator>().SetBool("selected", false);
-        cardInRightHand.transform.parent = cardHolderR.transform;
-        cardInRightHand.transform.localPosition = Vector3.zero;
-        cardInRightHand.transform.localRotation = Quaternion.identity;
-        cardInRightHand.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animation/ThrownCard.controller", typeof(RuntimeAnimatorController));
-    }
+//    IEnumerator WaitAndTakeCardForOpeningDoor(string card)
+//    {
+//        yield return new WaitForSeconds(0.25f);
+//
+//        GameObject cardOrig=null;
+//
+//        foreach (GameObject g in cards)
+//        {
+//            var x = g.GetComponentInChildren<pickupItem>();
+//            if (x.getCardValue() == card)
+//            {
+//                cardOrig = g.transform.Find("cardHand").gameObject;
+//
+//            }
+//        }
+//
+//        cardInRightHand = Instantiate(cardOrig);
+//        cardInRightHand.GetComponent<pickupItem>().SetCardValue(card);
+//        cardInRightHand.GetComponent<Animator>().SetBool("selected", false);
+//        cardInRightHand.transform.parent = cardHolderR.transform;
+//        cardInRightHand.transform.localPosition = Vector3.zero;
+//        cardInRightHand.transform.localRotation = Quaternion.identity;
+//        cardInRightHand.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animation/ThrownCard.controller", typeof(RuntimeAnimatorController));
+//    }
 }

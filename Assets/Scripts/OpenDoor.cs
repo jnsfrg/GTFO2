@@ -64,7 +64,7 @@ public class OpenDoor : MonoBehaviour
 			
 				if (removeInventoryItem) {
 					removeInventoryItem = false;
-					inventory.useItem (cardToOpen);
+                    inventory.useItem (cardToOpen);// down ?
 				}
 			}
 
@@ -76,6 +76,7 @@ public class OpenDoor : MonoBehaviour
 
 			if (Input.GetKeyDown ("f") && inventory.getInventoryList ().Contains (cardToOpen)) {
                 handController.OpenDoor(cardToOpen);
+                //inventory.useItem (cardToOpen);
 				animator.SetBool("canOpen",true);
 				audio.Play ();
 				Debug.Log ("start Animation");
