@@ -164,4 +164,61 @@ public class handController : MonoBehaviour
 		scrollState = 0;
 
 	}
+    IEnumerator WaitAndReturnCard()
+    {
+        yield return new WaitForSeconds(0.25f);
+        gameController.addCardIfPossible(cardInRightHand.GetComponent <pickupItem>().getCardValue());
+        Destroy(cardInRightHand);
+    }
+
+    IEnumerator WaitAndTakeCard()
+    {
+        yield return new WaitForSeconds(0.25f);
+
+        GameObject cardOrig = cards[indexOfSelectedCard].transform.Find("cardHand").gameObject;
+        cardInRightHand = Instantiate(cardOrig);
+        cardInRightHand.GetComponent<pickupItem>().SetCardValue(cardOrig.GetComponent <pickupItem>().getCardValue());
+        gameController.UseCard(cardOrig.GetComponent <pickupItem>().getCardValue());
+        cardInRightHand.GetComponent<Animator>().SetBool("selected", false);
+        cardInRightHand.transform.parent = cardHolderR.transform;
+        cardInRightHand.transform.localPosition = Vector3.zero;
+        cardInRightHand.transform.localRotation = Quaternion.identity;
+        cardInRightHand.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animation/ThrownCard.controller", typeof(RuntimeAnimatorController));
+        cardInRightHand.AddComponent <KnockoutEnemy>();
+        indexOfSelectedCard = 0;
+        scrollState = 0;
+
+    }
+
+    public void OpenDoor(string card)
+    {
+        animator.SetTrigger("openDoor");
+        StartCoroutine("WaitAndTakeCardForOpeningDoor",card);
+        animator.SetTrigger("openTaken");
+    }
+
+    IEnumerator WaitAndTakeCardForOpeningDoor(string card)
+    {
+        yield return new WaitForSeconds(0.25f);
+
+        GameObject cardOrig=null;
+
+        foreach (GameObject g in cards)
+        {
+            var x = g.GetComponentInChildren<pickupItem>();
+            if (x.getCardValue() == card)
+            {
+                cardOrig = g.transform.Find("cardHand").gameObject;
+
+            }
+        }
+
+        cardInRightHand = Instantiate(cardOrig);
+        cardInRightHand.GetComponent<pickupItem>().SetCardValue(card);
+        cardInRightHand.GetComponent<Animator>().SetBool("selected", false);
+        cardInRightHand.transform.parent = cardHolderR.transform;
+        cardInRightHand.transform.localPosition = Vector3.zero;
+        cardInRightHand.transform.localRotation = Quaternion.identity;
+        cardInRightHand.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animation/ThrownCard.controller", typeof(RuntimeAnimatorController));
+    }
 }
