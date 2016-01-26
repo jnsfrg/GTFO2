@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
 {
     public GameObject pausePanel;
     public bool isPaused;
+    private AudioSource[] allAudioSources;
+    private ArrayList audioSources;
     void Start()
     {
         isPaused = false;
@@ -80,20 +82,29 @@ public class UIManager : MonoBehaviour
 
     public void PauseAudio()
     {
-        AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>(); //Build array of all audio sources
+        allAudioSources = FindObjectsOfType<AudioSource>(); //Build array of all audio sources
+        audioSources = new ArrayList();
         foreach (AudioSource currentSource in allAudioSources)
         {
-            currentSource.Pause();
+            if (currentSource.isPlaying)
+            {
+                audioSources.Add(currentSource);
+                currentSource.Pause();
+            }
+                
         }
     }
 
     public void UnpauseAudio()
     {
-       AudioSource[] sources = GameObject.FindGameObjectWithTag("Player").GetComponents<AudioSource>();
+       /*AudioSource[] sources = GameObject.FindGameObjectWithTag("Player").GetComponents<AudioSource>();
        for (int i = 0; i < sources.Length - 1; i++)
        {
            sources[i].Play();
        }
+       GameObject.FindGameObjectWithTag("tank").GetComponent<AudioSource>().Play();*/
+        foreach (AudioSource currentSource in audioSources)
+            currentSource.UnPause();
            
         
     }
