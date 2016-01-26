@@ -136,7 +136,7 @@ public class handController : MonoBehaviour
 		cardInRightHand.transform.LookAt(hit.point);//send it on the ray
 		audio[0].Play();
 		cardInRightHand.GetComponent<Rigidbody> ().velocity = cardInRightHand.transform.forward * throwingInstantSpeed;
-	
+        gameController.DescreseScore();
 	}
 
 	IEnumerator WaitAndReturnCard ()

@@ -172,6 +172,7 @@ public class GameController : MonoBehaviour
 			Debug.Log ("destory", gameObject);
 
 			inventory.updateInventoryDisplayOnHand ();
+            IncreaseScore();
 			return true;
 		}
 		return false;

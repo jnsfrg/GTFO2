@@ -23,14 +23,14 @@ public class UIManager : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().enabled = false;
             PauseGame(true);
-            Cursor.visible = true;
+            Screen.lockCursor = false;
         }
 
         else
         {
             PauseGame(false);
             GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().enabled = true;
-            Cursor.visible = false;
+            Screen.lockCursor = true;
         }
 
 
@@ -108,5 +108,4 @@ public class UIManager : MonoBehaviour
            
         
     }
-
 }

@@ -155,6 +155,8 @@ public class EnemyAI : MonoBehaviour
 
 	}
 	public void Knockout(){
+        gameController.IncreaseScore();
+        gameController.IncreaseScore();
         audioSource[1].Play();
 		StartCoroutine ("knockedOut");
 	}
