@@ -89,8 +89,12 @@ public class UIManager : MonoBehaviour
 
     public void UnpauseAudio()
     {
-       AudioSource sources = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
-       sources.Play();
+       AudioSource[] sources = GameObject.FindGameObjectWithTag("Player").GetComponents<AudioSource>();
+       for (int i = 0; i < sources.Length - 1; i++)
+       {
+           sources[i].Play();
+       }
+           
         
     }
 
