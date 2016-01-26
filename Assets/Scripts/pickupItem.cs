@@ -33,7 +33,7 @@ public class pickupItem : MonoBehaviour
             //Only Pickup when inventory not full
             if (gameController.addCardIfPossible(cardValue))
             {
-                audio[1].Play();
+                audio[audio.Length-1].Play();
                 Debug.Log("PickUpAndPlay");
                 Destroy(this.gameObject);
             }

@@ -31,6 +31,7 @@ public class EnemyAI : MonoBehaviour
     public bool playedSound = false;
     public float enemyDistance;
     public float enemyMaxDistance;
+    private int soundFlag,seeFlag = 0;
 
 
 	void Start ()
@@ -116,7 +117,7 @@ public class EnemyAI : MonoBehaviour
 		if (other.tag == "Player"&&!knockout) {
 			float distance = Vector3.Distance (player.transform.position, transform.position);
 			playSounds (distance, col.radius);
-
+          
 
 			Vector3 direction = other.transform.position - (transform.position + Vector3.up); /***Vektor von dem Gegner + Vector3 nach oben, hin zur Position 
 			des Spielers. Das mit dem Vektor3.Up hab ich gemacht, weil der Pivot Punkt des Gegners an seinen Füßen ist und der des SPielers in der Mitte***/
@@ -134,6 +135,12 @@ public class EnemyAI : MonoBehaviour
 					//Debug.Log (hit.collider.gameObject);
 
 					if (hit.collider.gameObject == player.gameObject) {
+                        if (soundFlag == 0)
+                        {
+                            audioSource[2].Play();
+                            soundFlag++;
+                            seeFlag = 1;
+                        }
 						// ... the player is in sight.
 						if (fpsController.IsVisibleForEnemy ()) {
 							agent.destination = player.transform.position;
@@ -167,6 +174,14 @@ public class EnemyAI : MonoBehaviour
     void OnTriggerExit (Collider other) {
 
         if (other.tag == "Player") {
+            if (seeFlag == 1)
+            {
+                audioSource[3].Play();
+                seeFlag = 0 ;
+            }
+                
+            soundFlag = 0;
+            
             playedSound = false;
         }
     }
