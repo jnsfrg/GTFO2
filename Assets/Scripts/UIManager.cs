@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         isPaused = false;
+        Cursor.lockState = UnityEngine.CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
@@ -23,14 +24,17 @@ public class UIManager : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().enabled = false;
             PauseGame(true);
-            Screen.lockCursor = false;
+            Cursor.lockState = UnityEngine.CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         else
         {
             PauseGame(false);
             GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().enabled = true;
-            Screen.lockCursor = true;
+            //Screen.lockCursor = true;
+            Cursor.lockState = UnityEngine.CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
 
