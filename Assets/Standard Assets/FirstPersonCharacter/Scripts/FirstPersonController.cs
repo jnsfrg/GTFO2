@@ -231,7 +231,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             float vertical = CrossPlatformInputManager.GetAxis("Vertical");
 
             bool waswalking = m_IsWalking;
-            bool is_sneaking = Input.GetKey(KeyCode.X);
+            bool is_sneaking = Input.GetKey(KeyCode.LeftCommand);
             sneaking = is_sneaking;
 #if !MOBILE_INPUT
             // On standalone builds, walk/run speed is modified by a key press.

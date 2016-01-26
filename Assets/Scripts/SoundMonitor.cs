@@ -33,7 +33,7 @@ public class SoundMonitor : MonoBehaviour
         for (int i = 0; i < numberOfEnemyObjects; i++)
         {
 
-            Vector3 pos = new Vector3(transform.position.x-20 + x, transform.position.y, transform.position.z +1);
+            Vector3 pos = new Vector3(transform.position.x-25 + x, transform.position.y-5, transform.position.z +1);
             GameObject c = (GameObject) Instantiate(enemyPrefab,pos,Quaternion.identity);
             //c.transform.parent = transform;
            // c.transform.position = pos;
@@ -43,7 +43,7 @@ public class SoundMonitor : MonoBehaviour
         for (int j = 0; j < numberOfPlayerObjects; j++)
         {
 
-            Vector3 pos = new Vector3(transform.position.x-20 + y, transform.position.y, transform.position.z+1);
+            Vector3 pos = new Vector3(transform.position.x-25 + y, transform.position.y-5, transform.position.z+1);
             GameObject c = (GameObject) Instantiate(playerPrefab, pos, Quaternion.identity);
             //c.transform.parent = transform;
             //c.transform.position=new Vector3(0 + x, 0, 1);
