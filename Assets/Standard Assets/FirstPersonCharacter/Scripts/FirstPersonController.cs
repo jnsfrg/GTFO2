@@ -63,7 +63,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public int spintPauseTime = 8;
 
         private KeyCode runKey;
-
+        private AudioSource audioSourceRunning;
         // Use this for initialization
         private void Start()
         {
@@ -84,6 +84,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_NextStep = m_StepCycle / 2f;
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
+            audioSourceRunning = GetComponents<AudioSource>()[3]; 
             m_MouseLook.Init(transform, m_Camera.transform);
             animator = GameObject.FindWithTag("PlayerBody").GetComponent<Animator>();
         }
@@ -252,11 +253,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
 #if !MOBILE_INPUT
             // On standalone builds, walk/run speed is modified by a key press.
             // keep track of whether or not the character is walking or running
+            bool prevWalking = m_IsWalking;
             m_IsWalking = true;
             if (canSprint)
             {
                 m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
-                StartCoroutine("manageSprinting");
+                if (!m_IsWalking)
+                {
+                    StartCoroutine("manageSprinting");
+                }
+
+            }
+
+            if (!prevWalking && m_IsWalking)
+            {
+                stopSprinting(); 
             }
 #endif
             // set the desired speed to be walking or running
@@ -380,9 +391,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
         IEnumerator manageSprinting()
         {
             yield return new WaitForSeconds(sprintTime);
+           // audioSourceRunning.Play();
             canSprint = false;
             yield return new WaitForSeconds(spintPauseTime);
             canSprint = true;
+            yield return null;
+        }
+
+        private void  stopSprinting(){
+            audioSourceRunning.Play();
         }
     }
 }

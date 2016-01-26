@@ -22,6 +22,7 @@ public class DisplayResult : MonoBehaviour {
 
 	// show all highscore in the Text field on start of endscreen.
 	void Start(){
+        Screen.lockCursor = false;
 		Score score = GameObject.FindGameObjectWithTag ("Score").GetComponent<Score>();
 
 		if (score.getWin ()) {

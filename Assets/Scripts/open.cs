@@ -57,7 +57,6 @@ public class open : MonoBehaviour
         }
     }
 
-
     public void AddCard(string card)
     {
         if (cards == null)

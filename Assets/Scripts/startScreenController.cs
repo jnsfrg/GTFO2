@@ -10,10 +10,16 @@ public class startScreenController : MonoBehaviour
 
 	void Start ()
 	{	// Sets the last saved Palyer name as PlayerName
+        //PlayerPrefs.DeleteAll();
+
 		string name = PlayerPrefs.GetString ("PlayerName");
 		if (name.Length > 0) {
 			inputField.text = name;
 		}
 	}
+
+    public void setName(string arg0){
+        PlayerPrefs.SetString("PlayerName", inputField.text.ToString());
+    }
 
 }

@@ -20,7 +20,7 @@ public class Score : MonoBehaviour
 	private static string[] highScoreNames = new string[10];
 	private static bool InHighScore = false;
 	private static int rank;
-    public static int  changeValue = 50;
+    public static int  changeValue = 60;
     private int delta;
 
 	//set win true
