@@ -62,18 +62,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public int sprintTime = 4;
         public int spintPauseTime = 8;
 
-        private KeyCode runKey;
+        private KeyCode sneakKey;
         private AudioSource audioSourceRunning;
         // Use this for initialization
         private void Start()
         {
             if (Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor)
             {
-                runKey = KeyCode.LeftCommand;
+                sneakKey = KeyCode.LeftCommand;
             }
             else
             {
-                runKey = KeyCode.LeftControl;
+                sneakKey = KeyCode.LeftControl;
             }
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
@@ -201,7 +201,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void PlayFootStepAudio()
         {
-            bool is_sneaking = Input.GetKey(KeyCode.X);
+            bool is_sneaking = Input.GetKey(sneakKey);
             if (!m_CharacterController.isGrounded || is_sneaking)
             {
                 return;
@@ -248,7 +248,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             float vertical = CrossPlatformInputManager.GetAxis("Vertical");
 
             bool waswalking = m_IsWalking;
-            bool is_sneaking = Input.GetKey(runKey);
+            bool is_sneaking = Input.GetKey(sneakKey);
             sneaking = is_sneaking;
 #if !MOBILE_INPUT
             // On standalone builds, walk/run speed is modified by a key press.
