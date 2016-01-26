@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
@@ -56,9 +57,24 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool enemyInSight = false;
         private GameObject theEnemyInSight;
 
+        private bool canSprint = true;
+
+        public int sprintTime = 4;
+        public int spintPauseTime = 8;
+
+        private KeyCode runKey;
+
         // Use this for initialization
         private void Start()
         {
+            if (Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor)
+            {
+                runKey = KeyCode.LeftCommand;
+            }
+            else
+            {
+                runKey = KeyCode.LeftControl;
+            }
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
@@ -231,12 +247,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
             float vertical = CrossPlatformInputManager.GetAxis("Vertical");
 
             bool waswalking = m_IsWalking;
-            bool is_sneaking = Input.GetKey(KeyCode.LeftCommand);
+            bool is_sneaking = Input.GetKey(runKey);
             sneaking = is_sneaking;
 #if !MOBILE_INPUT
             // On standalone builds, walk/run speed is modified by a key press.
             // keep track of whether or not the character is walking or running
-            m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+            m_IsWalking = true;
+            if (canSprint)
+            {
+                m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+                StartCoroutine("manageSprinting");
+            }
 #endif
             // set the desired speed to be walking or running
             speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
@@ -354,6 +375,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public bool isWalking()
         {
             return m_IsWalking; 
+        }
+
+        IEnumerator manageSprinting()
+        {
+            yield return new WaitForSeconds(sprintTime);
+            canSprint = false;
+            yield return new WaitForSeconds(spintPauseTime);
+            canSprint = true;
         }
     }
 }
