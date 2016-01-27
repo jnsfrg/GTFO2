@@ -20,6 +20,7 @@ public class startScreenController : MonoBehaviour
 
     public void setName(string arg0){
         PlayerPrefs.SetString("PlayerName", inputField.text.ToString());
+     //   GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<Score>().name=inputField.text.ToString();
     }
 
 }
